@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +21,7 @@ public class RecordRepository {
         return record;
     }
 
-    public Optional<Record> findByRecordId(int memberId, int recordId) {
+    public Optional<Record> findByRecordId(Long memberId, Long recordId) {
         return em.createQuery("select r from Record r where r.member.id = :memberId", Record.class)
                  .setParameter("memberId", memberId)
                  .getResultList()
@@ -30,11 +31,7 @@ public class RecordRepository {
 
     public List<Record> findByRecent(Long memberId) {
         LocalDate now = LocalDate.now();
-        System.out.println("now = " + now);
-        System.out.println("now.getClass() = " + now.getClass());
         LocalDate minus = now.minusDays(14);
-        System.out.println("minus = " + minus);
-        System.out.println("minus.getClass() = " + minus.getClass());
         return em.createQuery("select r from Record r where r.member.id =:memberId and ( r.date between :minus and :now)", Record.class)
                  .setParameter("memberId", memberId)
                  .setParameter("minus", minus)
@@ -43,9 +40,12 @@ public class RecordRepository {
     }
 
     public List<Record> findByMonth(Long memberId, LocalDate date) {
-        LocalDate month = LocalDate.of(date.getYear(), date.getMonth(), 31);
-        return em.createQuery("select r from Record r where r.member.id = :memberId and r.date < :month", Record.class)
-                 .setParameter("month", month)
+        LocalDate firstDayOfMonth = LocalDate.of(date.getYear(), date.getMonth(), date.withDayOfMonth(1).getDayOfMonth());
+        LocalDate lastDayOfMonth = LocalDate.of(date.getYear(), date.getMonth(), date.lengthOfMonth());
+        return em.createQuery("select r from Record r where r.member.id = :memberId and ( r.date between :firstDayofMonth and :lastDayOfMonth)", Record.class)
+                 .setParameter("memberId", memberId)
+                 .setParameter("firstDayofMonth", firstDayOfMonth)
+                 .setParameter("lastDayOfMonth", lastDayOfMonth)
                  .getResultList();
 
     }
