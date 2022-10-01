@@ -42,9 +42,9 @@ public class RecordRepository {
     public List<Record> findByMonth(Long memberId, LocalDate date) {
         LocalDate firstDayOfMonth = LocalDate.of(date.getYear(), date.getMonth(), date.withDayOfMonth(1).getDayOfMonth());
         LocalDate lastDayOfMonth = LocalDate.of(date.getYear(), date.getMonth(), date.lengthOfMonth());
-        return em.createQuery("select r from Record r where r.member.id = :memberId and ( r.date between :firstDayofMonth and :lastDayOfMonth)", Record.class)
+        return em.createQuery("select r from Record r where r.member.id = :memberId and ( r.date between :firstDayOfMonth and :lastDayOfMonth)", Record.class)
                  .setParameter("memberId", memberId)
-                 .setParameter("firstDayofMonth", firstDayOfMonth)
+                 .setParameter("firstDayOfMonth", firstDayOfMonth)
                  .setParameter("lastDayOfMonth", lastDayOfMonth)
                  .getResultList();
 
