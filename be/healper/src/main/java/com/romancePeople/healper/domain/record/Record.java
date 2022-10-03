@@ -36,4 +36,10 @@ public class Record {
     @OneToMany(mappedBy = "record", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecordExercise> recordExerciseList;
 
+    public void addRecordExercises(List<RecordExercise> exercises) {
+        for (RecordExercise exercise : exercises) {
+            this.recordExerciseList.add(exercise);
+        }
+    }
+
 }
