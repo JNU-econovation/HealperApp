@@ -22,8 +22,9 @@ public class RecordRepository {
     }
 
     public Optional<Record> findByRecordId(Long memberId, Long recordId) {
-        return em.createQuery("select r from Record r where r.member.id = :memberId", Record.class)
+        return em.createQuery("select r from Record r where r.member.id = :memberId and r.id = :recordId", Record.class)
                  .setParameter("memberId", memberId)
+                 .setParameter("recordId", recordId)
                  .getResultList()
                  .stream()
                  .findAny();
