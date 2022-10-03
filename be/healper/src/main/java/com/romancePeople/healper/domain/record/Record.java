@@ -32,13 +32,15 @@ public class Record {
     @JoinColumn(name = "member_id")
     private Member member;
 
+
     @JsonIgnore
     @OneToMany(mappedBy = "record", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RecordExercise> recordExerciseList;
+    private List<RecordExercise> recordExercises;
 
     public void addRecordExercises(List<RecordExercise> exercises) {
         for (RecordExercise exercise : exercises) {
-            this.recordExerciseList.add(exercise);
+            this.getRecordExercises()
+                .add(exercise);
         }
     }
 
