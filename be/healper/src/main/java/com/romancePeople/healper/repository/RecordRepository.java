@@ -56,4 +56,16 @@ public class RecordRepository {
         return record;
     }
 
+
+    public void delete(Long memberId, Long recordId) {
+        Optional<Record> recordOptional = em.createQuery("select r from Record r where r.member.id = :memberId and r.id = :recordId", Record.class)
+                                            .setParameter("memberId", memberId)
+                                            .setParameter("recordId", recordId)
+                                            .getResultList()
+                                            .stream()
+                                            .findAny();
+        Record record = recordOptional.get();
+        em.remove(record);
+    }
+
 }
