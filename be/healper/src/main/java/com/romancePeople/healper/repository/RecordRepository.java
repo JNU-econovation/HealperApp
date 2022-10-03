@@ -64,6 +64,9 @@ public class RecordRepository {
                                             .getResultList()
                                             .stream()
                                             .findAny();
+        if (recordOptional.isEmpty()) {
+            throw new IllegalStateException("기록이 없습니다.");
+        }
         Record record = recordOptional.get();
         em.remove(record);
     }
