@@ -26,19 +26,9 @@ public class Record {
     @Embedded
     private SQLDate sqlDate;
 
-    @Setter
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
-
-//    @OneToMany(mappedBy = "record", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<RecordExercise> recordExercise;
-
-    public void addRecordExercise(RecordExercise recordExercise) {
-//        this.getRecordExercise()
-//            .add(recordExercise);
-        recordExercise.setRecord(this);
-    }
 
 }

@@ -29,7 +29,6 @@ public class RecordExercise {
     @Embedded
     private SQLDate sqlDate;
 
-    @Setter
     @ManyToOne
     @JoinColumn(name = "record_id")
     private Record record;

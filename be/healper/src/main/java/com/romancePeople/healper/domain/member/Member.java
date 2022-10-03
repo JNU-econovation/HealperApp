@@ -20,19 +20,4 @@ public class Member {
     @Embedded
     private SQLDate sqlDate;
 
-    public Member(SQLDate sqlDate) {
-        this.sqlDate = sqlDate;
-    }
-
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Record> records;
-
-    public void addRecord(Record record) {
-//        this.getRecords()
-//            .add(record);
-        record.setMember(this);
-    }
-
-
 }
