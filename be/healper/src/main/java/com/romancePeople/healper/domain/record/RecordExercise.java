@@ -20,11 +20,11 @@ public class RecordExercise {
 
     private int countPerSet;
 
-    private int successCount;
+    private Integer successCount;
 
-    private int failCount;
+    private Integer failCount;
 
-    private boolean isSuccess;
+    private Boolean isSuccess;
 
     @Embedded
     private SQLDate sqlDate;
